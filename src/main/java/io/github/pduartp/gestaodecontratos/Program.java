@@ -17,9 +17,9 @@ public class Program {
     public static void main(String[] args) {
         //<editor-fold defaultstate="collapsed" desc="Inserindo o cliente 1 e seus contratos">
         // Inserindo Cliente Ana Zaíra
-        Cliente c1 = new Cliente();
-
-        c1.setCpf(11929826303l);
+        Cliente c1 = new Cliente(null, 11929826303l, "Ana Zaíra");
+        
+        /*c1.setCpf(11929826303l);
 
         try
         {
@@ -28,7 +28,7 @@ public class Program {
         {
             Logger.getLogger(Program.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        */
         // Inserindo contratos de Ana Zaíra
         // Contrato 1
         Contrato co1 = new Contrato();
@@ -51,9 +51,9 @@ public class Program {
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inserindo o cliente 2 e seus contratos">
         // Inserindo Cliente Beatriz Yana
-        Cliente c2 = new Cliente();
+        Cliente c2 = new Cliente(null, 26752965030l, "Beatriz Yana");
 
-        c2.setCpf(26752965030l);
+        /*c2.setCpf(26752965030l);
 
         try
         {
@@ -62,26 +62,26 @@ public class Program {
         {
             Logger.getLogger(Program.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        */
         // Inserindo Contratos de Beatriz Yana
         // Inserindo Contrato 4
         Contrato co4 = new Contrato();
 
         co4.setRedacao("Contrato de estágio");
         co4.setUltimaAtualizacao(LocalDate.parse("15/10/2023", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
+
         // Inserindo Contrato 5
         Contrato co5 = new Contrato();
 
         co5.setRedacao("Contrato de experiência");
         co5.setUltimaAtualizacao(LocalDate.parse("16/09/2023", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
+
         // Inserindo Contrato 6
         Contrato co6 = new Contrato();
 
         co6.setRedacao("Contrato de teletrabalho");
         co6.setUltimaAtualizacao(LocalDate.parse("17/08/2023", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
+
         // Inserindo Contrato 7
         Contrato co7 = new Contrato();
 
@@ -104,11 +104,13 @@ public class Program {
         System.out.println(c2);
 
         //</editor-fold>
-        
         // CRUD = CREATE,RENAME,UPDATE, DELETE
-        
         // Salvando Entidades Clientes no Banco de Dados
-        //Long c1ID = new ClienteDao().saveOrUpdate(c1); 
-        //c1.setId(c1ID);
+        Long c1ID = new ClienteDao().saveOrUpdate(c1);
+        c1.setId(c1ID);
+        
+        Long c2ID = new ClienteDao().saveOrUpdate(c2);
+        c2.setId(c2ID);
+
     }
 }

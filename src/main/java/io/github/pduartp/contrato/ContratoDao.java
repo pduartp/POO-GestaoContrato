@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Patrick Duarte Pimenta
  */
-public abstract class ContratoDao
+public class ContratoDao
         extends Dao<Contrato> {
 
     public static final String TABLE = "Contrato";
@@ -97,30 +97,18 @@ public abstract class ContratoDao
         return contrato;
     }
 
-//    public List<Contrato> findByRedacaoBiggerThan100000() {
-//
-//        final String SQL = "select *"
-//                + " from " + TABLE
-//                + " where redacao > 100000";
-//
-//        try (PreparedStatement preparedStatement
-//                = DbConnection.getConnection().prepareStatement(SQL))
-//        {
-//
-//            // Show the full sentence
-//            System.out.println(">> SQL: " + preparedStatement);
-//
-//            // Performs the query on the database
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//
-//            // Returns the respective object
-//            return extractObjects(resultSet);
-//
-//        } catch (Exception ex)
-//        {
-//            System.out.println("Exception: " + ex);
-//        }
-//
-//        return null;
-//    }
+    @Override
+    public void moveToTrash(Contrato e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void restoreFromTrash(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Contrato> findAllOnTrash() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

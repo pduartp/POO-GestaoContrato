@@ -1,3 +1,9 @@
-io\github\pduartp\gestaodecontratos\Cliente.class
-io\github\pduartp\gestaodecontratos\Contrato.class
+io\github\pduartp\repository\DbConnection.class
+io\github\pduartp\cliente\ClienteDao.class
+io\github\pduartp\entity\Entity.class
 io\github\pduartp\gestaodecontratos\Program.class
+io\github\pduartp\repository\IDao.class
+io\github\pduartp\cliente\Cliente.class
+io\github\pduartp\contrato\Contrato.class
+io\github\pduartp\repository\Dao.class
+io\github\pduartp\contrato\ContratoDao.class

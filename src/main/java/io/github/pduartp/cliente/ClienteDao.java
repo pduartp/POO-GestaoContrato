@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author Patrick Duarte Pimenta
  */
-public abstract class ClienteDao
+public class ClienteDao
         extends Dao<Cliente> {
 
     public static final String TABLE = "Cliente";
@@ -32,7 +32,7 @@ public abstract class ClienteDao
     public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Cliente e) {
         try
         {
-            pstmt.setObject(1, e.getCpf(), java.sql.Types.NUMERIC);
+            pstmt.setObject(1, e.getCpf(), java.sql.Types.BIGINT);
             pstmt.setObject(2, e.getNome(), java.sql.Types.VARCHAR);
 
             // Just for the update
@@ -121,4 +121,19 @@ public abstract class ClienteDao
 //
 //        return null;
 //    }
+
+    @Override
+    public void moveToTrash(Cliente e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void restoreFromTrash(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Cliente> findAllOnTrash() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
