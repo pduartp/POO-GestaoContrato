@@ -162,31 +162,4 @@ public class ContratoDao
             System.out.println("Exception: " + ex);
         }
     }
-
-    public String update(Contrato contrato) {
-        String redacao = null;
-
-        // Update existing record
-        try (PreparedStatement preparedStatement
-                = DbConnection.getConnection().prepareStatement(
-                        getUpdateStatment()))
-        {
-
-            // Assemble the SQL statement with the data (->?)
-            composeSaveOrUpdateStatement(preparedStatement, contrato);
-
-            // Show the full sentence
-            System.out.println(">> SQL: " + preparedStatement);
-
-            // Performs the update on the database
-            redacao = contrato.getRedacao();
-            preparedStatement.executeUpdate();
-
-        } catch (Exception ex)
-        {
-            System.out.println("Exception: " + ex);
-        }
-
-        return redacao;
-    }
 }

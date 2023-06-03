@@ -187,11 +187,6 @@ public class Program {
         //<editor-fold defaultstate="collapsed" desc="U (Update): Contrato">
         co5.setRedacao(co5.getRedacao() + "!!!!");
         new ContratoDao().saveOrUpdate(co5);
-//        for (Contrato c : contratoComRedacao)
-//        {
-//            c.setRedacao("CONTRATO DE EXPERIÊNCIA CONCLUIDO");
-//            new ContratoDao().saveOrUpdate(c);
-//        }
 //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="D (Delete): Contrato">
         new ContratoDao().delete(co7r);
