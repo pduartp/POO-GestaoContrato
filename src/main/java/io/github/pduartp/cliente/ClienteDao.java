@@ -13,6 +13,14 @@ import java.util.logging.Logger;
  *
  * @author Patrick Duarte Pimenta
  */
+
+/*
+CREATE TABLE cliente (
+    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    cpf BIGINT,
+    nome VARCHAR(45) NOT NULL
+);
+ */
 public class ClienteDao
         extends Dao<Cliente> {
 
@@ -56,31 +64,19 @@ public class ClienteDao
     @Override
     public String getFindAllStatment() {
         return "select id, cpf, nome"
-                + " from Cliente"
-                + " where exlcuido = false";
+                + " from Cliente";
     }
 
     @Override
-    public String getMoveToTrashStatement() {
-        return "update " + TABLE + " set excluido = true"
-                + " where id = ?";
-    }
-
-    @Override
-    public String getRestoreFromTrashStatement() {
-        return "update " + TABLE + " set excluido = false"
-                + " where id = ?";
-    }
-
-    @Override
-    public String getFindAllOnTrashStatement() {
-        return "select * from " + TABLE + " where excluido = true";
+    public String getDeleteStatement() {
+        return "delete"
+                + " from Cliente where id = ?";
     }
 
     @Override
     public Cliente extractObject(ResultSet resultSet) {
         Cliente cliente = null;
-        
+
         try
         {
             cliente = new Cliente();
@@ -91,49 +87,7 @@ public class ClienteDao
         {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return cliente;
-    }
-
-//    public List<Cliente> findByNomeBiggerThan45() {
-//
-//        final String SQL = "select *"
-//                + " from " + TABLE
-//                + " where nome > 45";
-//
-//        try (PreparedStatement preparedStatement
-//                = DbConnection.getConnection().prepareStatement(SQL))
-//        {
-//
-//            // Show the full sentence
-//            System.out.println(">> SQL: " + preparedStatement);
-//
-//            // Performs the query on the database
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//
-//            // Returns the respective object
-//            return extractObjects(resultSet);
-//
-//        } catch (Exception ex)
-//        {
-//            System.out.println("Exception: " + ex);
-//        }
-//
-//        return null;
-//    }
-
-    @Override
-    public void moveToTrash(Cliente e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void restoreFromTrash(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<Cliente> findAllOnTrash() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

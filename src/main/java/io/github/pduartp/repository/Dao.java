@@ -33,7 +33,12 @@
  */
 package io.github.pduartp.repository;
 
+import static com.mysql.cj.conf.PropertyKey.PASSWORD;
+import static com.mysql.cj.conf.PropertyKey.USER;
 import io.github.pduartp.entity.Entity;
+import static io.github.pduartp.repository.DbConnection.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,6 +55,14 @@ import java.util.logging.Logger;
  * @version 0.1, 2022-10-24
  * @param <T> Entity data type
  */
+
+/*
+CREATE TABLE cliente (
+    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    cpf BIGINT,
+    nome VARCHAR(45) NOT NULL
+);
+ */
 public abstract class Dao<T>
         implements IDao<T> {
 
@@ -62,14 +75,16 @@ public abstract class Dao<T>
         Long id = 0L;
 
         if (((Entity) e).getId() == null
-                || ((Entity) e).getId() == 0) {
+                || ((Entity) e).getId() == 0)
+        {
 
             // Insert a new register
             // try-with-resources
-            try ( PreparedStatement preparedStatement
+            try (PreparedStatement preparedStatement
                     = DbConnection.getConnection().prepareStatement(
                             getSaveStatment(),
-                            Statement.RETURN_GENERATED_KEYS)) {
+                            Statement.RETURN_GENERATED_KEYS))
+            {
 
                 // Assemble the SQL statement with the data (->?)
                 composeSaveOrUpdateStatement(preparedStatement, e);
@@ -84,21 +99,25 @@ public abstract class Dao<T>
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
                 // Moves to first retrieved data
-                if (resultSet.next()) {
+                if (resultSet.next())
+                {
 
                     // Retrieve the returned primary key
                     id = resultSet.getLong(1);
                 }
 
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 System.out.println(">> " + ex);
             }
 
-        } else {
+        } else
+        {
             // Update existing record
-            try ( PreparedStatement preparedStatement
+            try (PreparedStatement preparedStatement
                     = DbConnection.getConnection().prepareStatement(
-                            getUpdateStatment())) {
+                            getUpdateStatment()))
+            {
 
                 // Assemble the SQL statement with the data (->?)
                 composeSaveOrUpdateStatement(preparedStatement, e);
@@ -112,7 +131,8 @@ public abstract class Dao<T>
                 // Keep the primary key
                 id = ((Entity) e).getId();
 
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 System.out.println("Exception: " + ex);
             }
         }
@@ -123,9 +143,10 @@ public abstract class Dao<T>
     @Override
     public T findById(Long id) {
 
-        try ( PreparedStatement preparedStatement
+        try (PreparedStatement preparedStatement
                 = DbConnection.getConnection().prepareStatement(
-                        getFindByIdStatment())) {
+                        getFindByIdStatment()))
+        {
 
             // Assemble the SQL statement with the id
             preparedStatement.setLong(1, id);
@@ -137,11 +158,13 @@ public abstract class Dao<T>
             ResultSet resultSet = preparedStatement.executeQuery();
 
             // Returns the respective object if exists
-            if (resultSet.next()) {
+            if (resultSet.next())
+            {
                 return extractObject(resultSet);
             }
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             System.out.println("Exception: " + ex);
         }
 
@@ -151,9 +174,10 @@ public abstract class Dao<T>
     @Override
     public List<T> findAll() {
 
-        try ( PreparedStatement preparedStatement
+        try (PreparedStatement preparedStatement
                 = DbConnection.getConnection().prepareStatement(
-                        getFindAllStatment())) {
+                        getFindAllStatment()))
+        {
 
             // Show the full sentence
             System.out.println(">> SQL: " + preparedStatement);
@@ -164,7 +188,8 @@ public abstract class Dao<T>
             // Returns the respective object
             return extractObjects(resultSet);
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             System.out.println("Exception: " + ex);
         }
 
@@ -175,15 +200,35 @@ public abstract class Dao<T>
     public List<T> extractObjects(ResultSet resultSet) {
         List<T> objects = new ArrayList<>();
 
-        try {
-            while (resultSet.next()) {
+        try
+        {
+            while (resultSet.next())
+            {
                 objects.add(extractObject(resultSet));
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return objects.isEmpty() ? null : objects;
+    }
+
+    @Override
+    public void delete(Long id) {
+        try (PreparedStatement preparedStatement = DbConnection.getConnection().prepareStatement(getDeleteStatement()))
+        {
+            preparedStatement.setLong(1, id);
+            System.out.println(">> SQL: " + preparedStatement);
+            preparedStatement.executeUpdate();
+
+            // Reset the autoincrement counter
+            Statement resetAutoIncrement = DbConnection.getConnection().createStatement();
+            resetAutoIncrement.executeUpdate("ALTER TABLE cliente AUTO_INCREMENT = 1");
+        } catch (Exception ex)
+        {
+            System.out.println("Exception: " + ex);
+        }
     }
 
 }

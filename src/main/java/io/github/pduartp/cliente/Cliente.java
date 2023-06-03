@@ -70,10 +70,11 @@ public class Cliente
     @Override
     public String toString() {
         return "Cliente{"
-                + "cpf=" + cpf
+                + "id=" + getId()
+                + ", cpf=" + cpf
                 + ", nome=" + nome
-                + ", contratos=\n" + contratos.toString()
-                + '}';
+//                + ", contratos=\n" + contratos.toString()
+                + '}' + "\n";
     }
 
 }

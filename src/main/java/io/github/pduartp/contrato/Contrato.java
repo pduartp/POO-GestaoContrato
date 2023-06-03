@@ -59,7 +59,8 @@ public class Contrato
     @Override
     public String toString() {
         return "Contrato{"
-                + "redacao=" + redacao
+                + "id=" + getId()
+                + ", redacao=" + redacao
                 + ", ultimaAtualizacao=" + ultimaAtualizacao
                 + '}' + "\n";
     }

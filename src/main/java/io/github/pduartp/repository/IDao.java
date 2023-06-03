@@ -46,7 +46,7 @@ import java.util.List;
  */
 public interface IDao<T> {
 
-    // Save
+    // CREATE // UPDATE
     public String getSaveStatment();
 
     public String getUpdateStatment();
@@ -55,25 +55,21 @@ public interface IDao<T> {
 
     public Long saveOrUpdate(T e);
 
-    // Get by ID
+    // READ BY ID
     public String getFindByIdStatment();
 
     public T findById(Long id);
 
-    // Get all
+    // READ BY ALL
     public String getFindAllStatment();
 
     public List<T> findAll();
-
-    // Trash
-    public String getMoveToTrashStatement();
-    public void moveToTrash(T e);
-
-    public String getRestoreFromTrashStatement();
-    public void restoreFromTrash(Long id); // OU T e
-
-    public String getFindAllOnTrashStatement();
-    public List<T> findAllOnTrash();
+    
+    
+    // DELETE
+    public String getDeleteStatement();
+    
+    public void delete(Long id);
 
     // Assembly objects
     public T extractObject(ResultSet resultSet);

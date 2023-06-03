@@ -33,6 +33,7 @@
  */
 package io.github.pduartp.repository;
 
+import com.mysql.cj.conf.PropertyKey;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -72,6 +73,10 @@ public class DbConnection {
                 + "&autoReconnect=true";
         USER = "root";
         PASSWORD = "";
+    }
+
+    static Connection getConnection(String URL, PropertyKey propertyKey, PropertyKey propertyKey0) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     //<editor-fold defaultstate="collapsed" desc="Construtor privado">
